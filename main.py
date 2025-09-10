@@ -181,8 +181,8 @@ async def take_screenshot_get(
     except Exception as e:
         raise HTTPException(status_code=500, detail=f"Failed to capture screenshot: {str(e)}")
 
-@app.get("/download/{filename}")
-async def download_screenshot(filename: str):
+@app.get("/download")
+async def download_screenshot(filename: str = Query(..., description="filename of screenshot"),):
     filepath = TEMP_DIR / filename
     
     if not filepath.exists():
